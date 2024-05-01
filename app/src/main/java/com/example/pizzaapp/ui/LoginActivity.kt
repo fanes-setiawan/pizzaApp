@@ -17,17 +17,26 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var txtUsername: EditText
     private lateinit var txtPassword: EditText
     private lateinit var imageView: ImageView
+    private lateinit var btnRegister: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login2)
 
-        // Initialize views
+        // Initialize login button and text fields
         btnLogin = findViewById(R.id.btnLogin)
         txtUsername = findViewById(R.id.txtUsername)
         txtPassword = findViewById(R.id.txtPassword)
+        imageView = findViewById(R.id.imageView)
+        btnRegister = findViewById(R.id.button)
+        // Set click listener for register button
+        btnRegister.setOnClickListener {
+            // Move to RegisterActivity
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
-        // Set click listener for login button
+        // Login button click listener
         btnLogin.setOnClickListener {
             val email = txtUsername.text.toString().trim()
             val password = txtPassword.text.toString().trim()
@@ -42,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
             val loginSuccessful = email == "valid@example.com" && password == "secret"
 
             if (loginSuccessful) {
-                // Login successful - show toast and move to another activity
+                // Login successful - show toast and potentially move to another activity
                 Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
@@ -51,5 +60,6 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Login Failed, Try Again !!!", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 }
